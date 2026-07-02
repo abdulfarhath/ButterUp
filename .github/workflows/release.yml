@@ -43,11 +43,17 @@ jobs:
       - name: Install frontend dependencies
         run: npm ci
 
-      - name: Build .deb
+      - name: Build bundles (deb, rpm, AppImage)
         run: npm run tauri build
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: "1"
+          NO_STRIP: "1"
 
-      - name: Attach .deb to release
+      - name: Attach bundles to release
         uses: softprops/action-gh-release@v2
         with:
-          files: src-tauri/target/release/bundle/deb/*.deb
+          files: |
+            src-tauri/target/release/bundle/deb/*.deb
+            src-tauri/target/release/bundle/rpm/*.rpm
+            src-tauri/target/release/bundle/appimage/*.AppImage
           generate_release_notes: true

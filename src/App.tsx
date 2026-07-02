@@ -76,8 +76,8 @@ export default function App() {
 
       {system && !system.debian_based && (
         <div className="banner warning">
-          ⚠️ {system.os_name} doesn't look Debian-based. ButterUp manages apt/dpkg systems —
-          most features won't work here.
+          ⚠️ {system.os_name} isn't Debian-based: updates via PackageKit, snap and flatpak still
+          work, but the apt-specific health checks, cleanup and history won't apply.
         </div>
       )}
 

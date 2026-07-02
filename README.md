@@ -11,7 +11,8 @@
 [![Latest release](https://img.shields.io/github/v/release/abdulfarhath/ButterUp?color=ffa116)](https://github.com/abdulfarhath/ButterUp/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/abdulfarhath/ButterUp/total?color=2cbb5d)](https://github.com/abdulfarhath/ButterUp/releases)
 [![License: GPL-3.0](https://img.shields.io/github/license/abdulfarhath/ButterUp)](LICENSE)
-![Platform](https://img.shields.io/badge/platform-Ubuntu%20%7C%20Debian-e95420)
+![Platform](https://img.shields.io/badge/platform-Ubuntu%20%7C%20Debian%20%7C%20deb%20·%20rpm%20·%20AppImage-e95420)
+![Arch](https://img.shields.io/badge/arch-amd64%20%7C%20arm64-8a2be2)
 
 <img src="docs/screenshots/updates.png" width="850" alt="ButterUp — apt, snap and flatpak updates side by side"/>
 
@@ -32,17 +33,21 @@ escalation goes through the system's normal password dialog (polkit).
 
 ## Install
 
-Grab the `.deb` from the [latest release](https://github.com/abdulfarhath/ButterUp/releases/latest), then:
+Grab a package from the [latest release](https://github.com/abdulfarhath/ButterUp/releases/latest) —
+each comes in **amd64** (Intel/AMD) and **arm64** (Raspberry Pi 4/5, ARM laptops):
 
-```bash
-sudo apt install ./ButterUp_*.deb
-```
+| Your system | File | Install |
+|---|---|---|
+| Ubuntu 22.04+, Debian 12+, Mint, Pop!\_OS… | `ButterUp_*.deb` | `sudo apt install ./ButterUp_*.deb` |
+| Fedora, openSUSE, RHEL | `ButterUp-*.rpm` | `sudo dnf install ./ButterUp-*.rpm` |
+| Anything else (no install needed) | `ButterUp_*.AppImage` | `chmod +x` and run |
 
 That's it — launch **ButterUp** from your app menu.
 
-Works on Debian 12+, Ubuntu 22.04+ and their derivatives (Mint, Pop!\_OS,
-elementary…). PackageKit and pkexec are recommended and preinstalled on
-standard Ubuntu desktops.
+The full experience (health repairs, cleanup, history) is built for
+apt/dpkg systems. On non-Debian distros the PackageKit updates, snap and
+flatpak features still work; the apt-specific tools hide themselves.
+PackageKit and pkexec are recommended and preinstalled on standard desktops.
 
 ## What it does
 
