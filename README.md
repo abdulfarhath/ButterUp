@@ -1,73 +1,86 @@
-# ButterUp 🧈
+<div align="center">
 
-**One friendly place to update everything on Ubuntu and Debian.**
+<img src="src-tauri/icons/icon.png" width="96" alt="ButterUp icon"/>
 
-Keeping a Debian-based system healthy means juggling apt, snap, flatpak, and
-more — and when updates go wrong, you're copy-pasting `dpkg` incantations from
-forum posts. ButterUp puts it all in one place: see what's pending, update
-everything or just what you pick, and detect and repair the common broken
-states that make systems misbehave.
+# ButterUp
 
-## Features
+**Updates that run like butter — apt, snap & flatpak in one window.**
 
-- **Updates** — pending apt (PackageKit over D-Bus), snap, and flatpak
-  updates side by side; install everything, just your selection, or
-  **security fixes only**, with live progress and the download size shown
-  up front. Privilege escalation goes through polkit.
-- **Health** — checks for interrupted dpkg operations, half-installed or
-  misconfigured packages, broken dependencies, held-back packages, a filling
-  `/boot`, kernel build-up, stale package lists, and pending restarts —
-  each with a one-click guided repair where one is safe to offer.
-- **Cleanup** — remove no-longer-needed packages and old kernels
-  (`autoremove --purge`), clear the apt package cache, delete superseded
-  snap revisions, and trim the systemd journal — with sizes shown up front.
-- **History** — every package change on the system (from apt's own
-  transaction log), searchable at a glance: when, what, and who asked.
+*From the Hindi phrase "makkhan jaisa chalna" — runs like butter.* 🧈
 
-## Roadmap
+[![Latest release](https://img.shields.io/github/v/release/abdulfarhath/ButterUp?color=ffa116)](https://github.com/abdulfarhath/ButterUp/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/abdulfarhath/ButterUp/total?color=2cbb5d)](https://github.com/abdulfarhath/ButterUp/releases)
+[![License: GPL-3.0](https://img.shields.io/github/license/abdulfarhath/ButterUp)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-Ubuntu%20%7C%20Debian-e95420)
 
-- [x] List pending apt updates (PackageKit over D-Bus)
-- [x] Install selected / all apt updates with progress
-- [x] Snap updates (via `snap refresh`, polkit-authorized)
-- [x] Flatpak updates
-- [x] Health check: interrupted dpkg, held/broken packages, full /boot
-- [x] One-click guided repairs (polkit-authorized)
-- [x] Cleanup: autoremove, old kernels, package cache
-- [x] .deb packaging (`npm run tauri build`)
-- [x] Security-only updates + download size preview
-- [x] Update history (apt transaction log)
-- [x] Deeper cleanup: old snap revisions, journal vacuum
-- [ ] Tray icon + background update notifications
-- [ ] Flatpak unused-runtime cleanup
-- [ ] PPA publishing
+<img src="docs/screenshots/updates.png" width="850" alt="ButterUp — apt, snap and flatpak updates side by side"/>
+
+</div>
+
+## Your update broke. Now what?
+
+`dpkg was interrupted, you must manually run…` — if that sentence has ever ruined
+your afternoon, ButterUp is for you. Keeping a Debian-based system healthy means
+juggling apt, snap and flatpak, and when updates go wrong you end up copy-pasting
+terminal incantations from decade-old forum threads.
+
+ButterUp puts it all in one friendly window: see everything that's pending,
+update all of it (or only the security fixes) with one click, **detect and repair
+the classic broken states**, and reclaim the gigabytes hiding in caches, old
+kernels and forgotten snap revisions. No terminal required — privilege
+escalation goes through the system's normal password dialog (polkit).
 
 ## Install
 
-Download the latest `.deb` from the
-[Releases page](https://github.com/abdulfarhath/ButterUp/releases), then:
+Grab the `.deb` from the [latest release](https://github.com/abdulfarhath/ButterUp/releases/latest), then:
 
 ```bash
 sudo apt install ./ButterUp_*.deb
 ```
 
-Works on Debian 12+, Ubuntu 22.04+ and their derivatives (needs
-WebKitGTK 4.1). PackageKit and pkexec are recommended and preinstalled on
+That's it — launch **ButterUp** from your app menu.
+
+Works on Debian 12+, Ubuntu 22.04+ and their derivatives (Mint, Pop!\_OS,
+elementary…). PackageKit and pkexec are recommended and preinstalled on
 standard Ubuntu desktops.
 
-## Tech stack
+## What it does
 
-- **Frontend:** React + TypeScript + Vite
-- **Shell:** [Tauri 2](https://v2.tauri.app) (system WebKitGTK, not Electron)
-- **Backend:** Rust — `zbus` for PackageKit/D-Bus, snapd REST, polkit
+| | |
+|---|---|
+| 🔄 **Update everything** | apt (via PackageKit), snap and flatpak side by side — update all, a selection, or **security fixes only**, with live progress and download size up front |
+| 🩺 **Health checks** | 8 checks for the states that break systems: interrupted dpkg, broken dependencies, held packages, a filling `/boot`, kernel build-up, stale package lists, pending restarts |
+| 🔧 **One-click repairs** | every problem ships with a guided, polkit-authorized fix — the same commands the forums would tell you to run, without the forums |
+| 🧹 **Deep cleanup** | autoremove + old kernels, apt cache, superseded snap revisions, systemd journal — sizes shown before you commit |
+| 📜 **History** | every package change on the system, parsed from apt's own transaction log: when, what, and who asked |
+| 🪶 **Lightweight** | native Tauri 2 app (system WebKit, no Electron) — a ~4 MB .deb |
 
-## Developing
+<div align="center">
+<img src="docs/screenshots/health.png" width="850" alt="Health checks with one-click repairs"/>
+<br/><br/>
+<img src="docs/screenshots/cleanup.png" width="850" alt="Cleanup — old kernels, caches, snap revisions and journals"/>
+</div>
+
+## Why not just use the built-in updater?
+
+Ubuntu's updater shows you updates — and nothing else. When an update *fails*,
+you're on your own. ButterUp's health checks catch the classic failure states
+and fix them with one authorized click. And unlike the cleanup tools of old
+(Stacer, etc.), it's built on the system's proper interfaces — PackageKit over
+D-Bus, polkit, snapd — not scraped commands, so it stays honest with your
+package manager.
+
+Everything it runs as root is a short, fixed whitelist you can audit in
+[one file](src-tauri/src/privileged.rs).
+
+## Building from source
 
 System dependencies (Ubuntu/Debian):
 
 ```bash
 sudo apt install build-essential curl wget file pkg-config \
   libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev \
-  librsvg2-dev libxdo-dev nodejs npm rustc cargo
+  librsvg2-dev nodejs npm rustc cargo
 ```
 
 Run in development:
@@ -77,12 +90,39 @@ npm install
 npm run tauri dev
 ```
 
-Build a release binary / .deb:
+Build a release `.deb`:
 
 ```bash
 npm run tauri build
 ```
 
+Run the (read-only) smoke tests against your live system:
+
+```bash
+cd src-tauri && cargo test --test smoke -- --nocapture
+```
+
+## Roadmap
+
+- [x] Unified updates: apt (PackageKit over D-Bus), snap, flatpak
+- [x] Security-only updates + download size preview
+- [x] Health checks with one-click, polkit-authorized repairs
+- [x] Cleanup: autoremove, old kernels, package cache, snap revisions, journal
+- [x] Update history (apt transaction log)
+- [x] .deb packaging + CI releases
+- [ ] Tray icon + background update notifications
+- [ ] Flatpak unused-runtime cleanup
+- [ ] PPA / apt repository publishing
+
+Contributions welcome — the codebase is small and readable (Rust + React),
+and the roadmap above is a good place to start.
+
+## Tech stack
+
+- **Frontend:** React + TypeScript + Vite
+- **Shell:** [Tauri 2](https://v2.tauri.app) (system WebKitGTK, not Electron)
+- **Backend:** Rust — `zbus` for PackageKit/D-Bus, snap & flatpak CLIs, polkit via pkexec
+
 ## License
 
-GPL-3.0-or-later
+[GPL-3.0-or-later](LICENSE)
