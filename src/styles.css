@@ -1,0 +1,752 @@
+/* LeetCode-inspired dark theme: charcoal surfaces, orange accent,
+   teal/yellow/red for severity — dark-only by design. */
+
+:root {
+  --bg: #1a1a1a;
+  --bg-elev: #282828;
+  --bg-hover: #303030;
+  --bg-inset: #212121;
+  --border: #3a3a3a;
+  --fg: #eff1f6;
+  --fg-dim: #9199a3;
+  --accent: #ffa116;
+  --accent-fg: #1a1a1a;
+  --green: #2cbb5d;
+  --teal: #00b8a3;
+  --yellow: #ffc01e;
+  --red: #ff375f;
+  --blue: #4b9fff;
+  font-family: system-ui, "Ubuntu", "Cantarell", sans-serif;
+  color-scheme: dark;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+code {
+  font-family: "JetBrains Mono", "Ubuntu Mono", monospace;
+  font-size: 0.9em;
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1px 6px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ---- header ---- */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 22px;
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  font-size: 20px;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 10px;
+}
+
+.header-title h1 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+}
+
+.subtitle {
+  display: block;
+  font-size: 12px;
+  color: var(--fg-dim);
+}
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.tab {
+  padding: 7px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--fg-dim);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.tab:hover {
+  color: var(--fg);
+}
+
+.tab.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--fg);
+}
+
+/* ---- banner ---- */
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 9px 16px;
+  font-size: 13px;
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg));
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, var(--bg));
+}
+
+.banner.warning {
+  background: color-mix(in srgb, var(--red) 14%, var(--bg));
+  border-bottom-color: color-mix(in srgb, var(--red) 30%, var(--bg));
+}
+
+.banner-dismiss {
+  border: none;
+  background: transparent;
+  color: var(--fg-dim);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.banner-dismiss:hover {
+  color: var(--fg);
+}
+
+/* ---- layout ---- */
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 22px 32px;
+}
+
+.sections {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 16px;
+  max-width: 1560px;
+  margin: 0 auto;
+}
+
+.sections > .toolbar,
+.sections > .span-all,
+.sections > p,
+.sections > .check-list,
+.sections > .spinner {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1100px) {
+  .sections {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Update sources sit side by side so none ends up below the fold. */
+  .sections.cols-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ---- cards ---- */
+
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card-header h2 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.card-subtitle {
+  font-size: 12.5px;
+  color: var(--fg-dim);
+}
+
+/* ---- package tables (LeetCode problem-list style) ---- */
+
+.table-wrap {
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  /* Long lists scroll inside their own card instead of pushing the
+     neighbouring columns below the fold. */
+  max-height: clamp(240px, calc(100vh - 320px), 920px);
+  overflow-y: auto;
+}
+
+.pkg-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 13px;
+}
+
+.pkg-table th {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+  color: var(--fg-dim);
+  padding: 9px 12px;
+  background: #2a2a2a; /* opaque: header is sticky over scrolling rows */
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.pkg-table td {
+  padding: 9px 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pkg-table input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  display: block;
+}
+
+.pkg-table tbody tr {
+  cursor: pointer;
+}
+
+.pkg-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.pkg-table tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.pkg-table tbody tr.selected,
+.pkg-table tbody tr.selected:hover {
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+
+.pkg-table .col-check {
+  width: 36px;
+}
+
+.pkg-table .pkg-name {
+  display: block;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pkg-table .pkg-sub {
+  display: block;
+  font-size: 11.5px;
+  color: var(--fg-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pkg-table .col-sev {
+  width: 106px;
+}
+
+.pkg-table .col-ver {
+  width: 118px;
+  text-align: right;
+}
+
+.pkg-table td.col-ver {
+  font-family: "JetBrains Mono", "Ubuntu Mono", monospace;
+  font-size: 11px;
+  color: var(--fg-dim);
+}
+
+/* ---- badges (LeetCode difficulty-pill style) ---- */
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--fg-dim);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.badge-security,
+.badge-critical {
+  color: var(--red);
+  background: color-mix(in srgb, var(--red) 14%, transparent);
+}
+
+.badge-important {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.badge-bugfix {
+  color: var(--teal);
+  background: color-mix(in srgb, var(--teal) 14%, transparent);
+}
+
+.badge-blocked {
+  color: var(--yellow);
+  background: color-mix(in srgb, var(--yellow) 14%, transparent);
+}
+
+.badge-enhancement,
+.badge-low {
+  color: var(--blue);
+  background: color-mix(in srgb, var(--blue) 14%, transparent);
+}
+
+/* ---- buttons ---- */
+
+button.primary {
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: filter 0.12s;
+}
+
+button.primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+button.primary:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+button.ghost {
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+button.ghost:hover:not(:disabled) {
+  background: var(--bg-hover);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+}
+
+button.ghost:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ---- progress ---- */
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-bar {
+  height: 6px;
+  border-radius: 99px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.progress-bar.indeterminate .progress-fill {
+  position: absolute;
+  width: 30%;
+  animation: slide 1.2s ease-in-out infinite;
+}
+
+@keyframes slide {
+  0% {
+    left: -30%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.progress-detail {
+  font-size: 12px;
+  color: var(--fg-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- text helpers ---- */
+
+.inline-error {
+  font-size: 12.5px;
+  color: var(--red);
+  background: color-mix(in srgb, var(--red) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--red) 25%, transparent);
+  border-radius: 8px;
+  padding: 8px 12px;
+  user-select: text;
+}
+
+.muted {
+  font-size: 13px;
+  color: var(--fg-dim);
+}
+
+.footnote {
+  font-size: 11.5px;
+}
+
+.all-clear {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--green);
+}
+
+.all-clear .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.pkg-names {
+  font-family: "JetBrains Mono", "Ubuntu Mono", monospace;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  max-height: 96px;
+  overflow-y: auto;
+  user-select: text;
+}
+
+/* ---- states / spinner ---- */
+
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15vh;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.state-emoji {
+  font-size: 42px;
+}
+
+.state-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.state-detail {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+  max-width: 56ch;
+  user-select: text;
+}
+
+.state button {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.state button:hover {
+  background: var(--bg-hover);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  margin: 15vh auto 0;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.spinner.small {
+  width: 22px;
+  height: 22px;
+  margin: 10px auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- header action groups ---- */
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+button.ghost.security {
+  color: var(--red);
+  border-color: color-mix(in srgb, var(--red) 40%, var(--border));
+}
+
+button.ghost.security:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--red) 10%, transparent);
+  border-color: var(--red);
+}
+
+/* ---- history ---- */
+
+.history-entry {
+  padding: 0;
+  overflow: hidden;
+}
+
+.history-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.history-summary::-webkit-details-marker {
+  display: none;
+}
+
+.history-summary::before {
+  content: "▸";
+  color: var(--fg-dim);
+  font-size: 11px;
+  transition: transform 0.15s;
+}
+
+details[open] .history-summary::before {
+  transform: rotate(90deg);
+}
+
+.history-summary:hover {
+  background: var(--bg-hover);
+}
+
+.history-date {
+  font-family: "JetBrains Mono", "Ubuntu Mono", monospace;
+  font-size: 12px;
+  color: var(--fg);
+  flex-shrink: 0;
+}
+
+.history-counts {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.history-cmd {
+  font-size: 12px;
+  color: var(--fg-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: auto;
+  max-width: 40%;
+}
+
+.history-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 18px 14px;
+  border-top: 1px solid var(--border);
+}
+
+.history-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--fg-dim);
+  margin: 8px 0 4px;
+}
+
+/* ---- health checks ---- */
+
+.check-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+  gap: 12px;
+}
+
+.check-row {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.check-row button.primary {
+  margin-left: auto;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 92px;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  color: var(--fg-dim);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.status-pill .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-ok {
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 12%, transparent);
+}
+
+.status-warn {
+  color: var(--yellow);
+  background: color-mix(in srgb, var(--yellow) 12%, transparent);
+}
+
+.status-bad {
+  color: var(--red);
+  background: color-mix(in srgb, var(--red) 12%, transparent);
+}
+
+.status-info {
+  color: var(--blue);
+  background: color-mix(in srgb, var(--blue) 12%, transparent);
+}
+
+.check-text {
+  flex: 1 1 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.check-title {
+  font-weight: 600;
+  font-size: 13.5px;
+}
+
+.check-detail {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--fg-dim);
+  white-space: pre-line;
+  user-select: text;
+}

@@ -1,0 +1,30 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f9d64a"/>
+      <stop offset="1" stop-color="#e0a800"/>
+    </linearGradient>
+    <linearGradient id="pat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff3c4"/>
+      <stop offset="1" stop-color="#ffe08a"/>
+    </linearGradient>
+  </defs>
+  <!-- rounded-square app background -->
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#bg)"/>
+  <!-- butter dish shadow -->
+  <ellipse cx="256" cy="392" rx="168" ry="26" fill="#b8860b" opacity="0.35"/>
+  <!-- butter pat -->
+  <g>
+    <rect x="112" y="232" width="288" height="150" rx="26" fill="url(#pat)"/>
+    <!-- top face -->
+    <path d="M138 232 L180 176 Q186 168 196 168 L374 168 Q384 168 390 176 L400 232 Q400 244 388 244 L124 244 Q112 244 112 232 Z"
+          fill="#fff8dc" transform="translate(0,-12)"/>
+    <!-- melting drip -->
+    <path d="M112 300 q0 34 26 34 q22 0 22 -22 q0 -18 14 -18 l0 -40 l-62 0 Z" fill="#f9d64a" opacity="0.55"/>
+  </g>
+  <!-- up arrow: updates -->
+  <g stroke="#7a5c00" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M256 356 L256 236"/>
+    <path d="M204 288 L256 232 L308 288"/>
+  </g>
+</svg>
