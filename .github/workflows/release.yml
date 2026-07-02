@@ -14,7 +14,12 @@ permissions:
 
 jobs:
   build-deb:
-    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-22.04       # amd64 (Intel/AMD PCs)
+          - runner: ubuntu-22.04-arm   # arm64 (Raspberry Pi 4/5, ARM laptops)
+    runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
 
