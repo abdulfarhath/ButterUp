@@ -41,6 +41,19 @@ states that make systems misbehave.
 - [ ] Flatpak unused-runtime cleanup
 - [ ] PPA publishing
 
+## Install
+
+Download the latest `.deb` from the
+[Releases page](https://github.com/abdulfarhath/ButterUp/releases), then:
+
+```bash
+sudo apt install ./ButterUp_*.deb
+```
+
+Works on Debian 12+, Ubuntu 22.04+ and their derivatives (needs
+WebKitGTK 4.1). PackageKit and pkexec are recommended and preinstalled on
+standard Ubuntu desktops.
+
 ## Tech stack
 
 - **Frontend:** React + TypeScript + Vite
