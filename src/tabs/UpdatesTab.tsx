@@ -154,6 +154,7 @@ export default function UpdatesTab({ busy, setBusy, system, onNeedsRestart }: Pr
         title="System packages"
         subtitle={aptSize ? `apt / PackageKit · ${aptSize} to download` : "apt / PackageKit"}
         task="apt"
+        tone="amber"
         securityFirst
         data={
           system && !system.packagekit
@@ -182,6 +183,7 @@ export default function UpdatesTab({ busy, setBusy, system, onNeedsRestart }: Pr
         title="Snaps"
         subtitle="snap store"
         task="snap"
+        tone="violet"
         data={snap}
         busy={busy}
         error={errors["snap"]}
@@ -193,6 +195,7 @@ export default function UpdatesTab({ busy, setBusy, system, onNeedsRestart }: Pr
         title="Flatpak apps"
         subtitle="flathub & friends"
         task="flatpak"
+        tone="cyan"
         data={flatpak}
         busy={busy}
         error={errors["flatpak"]}
@@ -216,10 +219,13 @@ function Section(props: {
   allMeansEmpty?: boolean;
   /** Offer a "security only" button when security/critical rows exist. */
   securityFirst?: boolean;
+  /** Accent color class for the card (amber, violet, cyan…). */
+  tone?: string;
   onInstall: (ids: string[]) => void;
 }) {
-  const { title, subtitle, task, data, busy, error, allMeansEmpty, securityFirst, onInstall } =
-    props;
+  const {
+    title, subtitle, task, data, busy, error, allMeansEmpty, securityFirst, tone, onInstall,
+  } = props;
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const progress = useProgress(task);
   const running = busy === task;
@@ -264,7 +270,7 @@ function Section(props: {
       : "Update all";
 
   return (
-    <section className="card">
+    <section className={`card${tone ? ` tone-${tone}` : ""}`}>
       <header className="card-header">
         <div>
           <h2>{title}</h2>

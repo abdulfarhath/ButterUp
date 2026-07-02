@@ -70,7 +70,7 @@ export default function CleanupTab({ busy, setBusy, system }: Props) {
         </p>
       )}
 
-      <section className="card">
+      <section className="card tone-green">
         <header className="card-header">
           <div>
             <h2>Unused packages</h2>
@@ -106,7 +106,7 @@ export default function CleanupTab({ busy, setBusy, system }: Props) {
         </p>
       </section>
 
-      <section className="card">
+      <section className="card tone-pink">
         <header className="card-header">
           <div>
             <h2>Package cache</h2>
@@ -140,7 +140,7 @@ export default function CleanupTab({ busy, setBusy, system }: Props) {
       </section>
 
       {info.old_snaps.length > 0 && (
-        <section className="card">
+        <section className="card tone-violet">
           <header className="card-header">
             <div>
               <h2>Old snap revisions</h2>
@@ -170,7 +170,7 @@ export default function CleanupTab({ busy, setBusy, system }: Props) {
       )}
 
       {info.journal_size && (
-        <section className="card">
+        <section className="card tone-blue">
           <header className="card-header">
             <div>
               <h2>System logs</h2>

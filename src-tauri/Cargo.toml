@@ -1,6 +1,6 @@
 [package]
 name = "butterup"
-version = "0.2.0"
+version = "0.2.1"
 description = "One friendly place to update everything on Ubuntu and Debian"
 edition = "2021"
 license = "GPL-3.0-or-later"
